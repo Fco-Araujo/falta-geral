@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel | Pedido de Falta</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="dashboard-body">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-box">
+          <div class="brand-icon">+</div>
+          <div class="brand-text">
+            <strong>Pedido de Falta</strong>
+            <span>Gestão de pedidos</span>
+          </div>
+        </div>
+
+        <button class="menu-close" id="menuClose">×</button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-link active" data-tab="inicio">
+          <span class="nav-dot"></span>
+          Início
+        </button>
+
+        <button class="nav-link" data-tab="medicamentos">
+          <span class="nav-dot"></span>
+          Medicamentos
+        </button>
+
+        <button class="nav-link" data-tab="novo-pedido">
+          <span class="nav-dot"></span>
+          Novo Pedido
+        </button>
+
+        <button class="nav-link" data-tab="historico">
+          <span class="nav-dot"></span>
+          Histórico
+        </button>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="user-box">
+          <div class="user-avatar" id="userAvatar">U</div>
+          <div class="user-info">
+            <span>Usuário logado</span>
+            <strong id="usuarioLogadoNome">Usuário</strong>
+          </div>
+        </div>
+
+        <button class="btn btn-outline btn-full" id="btnSair">Sair</button>
+      </div>
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="main-layout">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-open" id="menuOpen">☰</button>
+
+          <div>
+            <h2 id="tituloPagina">Painel</h2>
+           
+          </div>
+        </div>
+
+        <div class="topbar-badge">
+          <span>Ambiente de teste</span>
+        </div>
+      </header>
+
+      <main class="content-area">
+        <section class="tab-content active" id="tab-inicio">
+          <div class="hero-panel">
+            <div class="hero-text">
+              <span class="hero-chip">Visão Geral</span>
+              <p>
+                Cadastre medicamentos, monte pedidos rapidamente, consulte o histórico
+                e exporte os pedidos em PDF.
+              </p>
+            </div>
+
+            <div class="hero-glow"></div>
+          </div>
+
+          <div class="cards-grid">
+            <article class="metric-card metric-blue">
+              <div class="metric-icon">💊</div>
+              <div class="metric-content">
+                <span>Medicamentos cadastrados</span>
+                <strong id="totalMedicamentos">0</strong>
+              </div>
+            </article>
+
+            <article class="metric-card metric-purple">
+              <div class="metric-icon">📄</div>
+              <div class="metric-content">
+                <span>Pedidos realizados</span>
+                <strong id="totalPedidos">0</strong>
+              </div>
+            </article>
+
+            <article class="metric-card metric-cyan">
+              <div class="metric-icon">🛒</div>
+              <div class="metric-content">
+                <span>Itens no pedido atual</span>
+                <strong id="totalItensAtual">0</strong>
+              </div>
+            </article>
+          </div>
+
+          <div class="panel-grid">
+            <section class="panel glass-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Últimos pedidos</h3>
+                  <p>Pedidos mais recentes.</p>
+                </div>
+              </div>
+
+              <div id="ultimosPedidosLista" class="list-box empty-box">
+                Nenhum pedido cadastrado ainda.
+              </div>
+            </section>
+
+            <section class="panel glass-panel">
+              <div class="panel-header">
+                <div>
+                  <h3>Medicamentos recentes</h3>
+                  <p>Últimos itens cadastrados no catálogo.</p>
+                </div>
+              </div>
+
+              <div id="ultimosMedicamentosLista" class="list-box empty-box">
+                Nenhum medicamento cadastrado ainda.
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="tab-content" id="tab-medicamentos">
+          <div class="section-header">
+            <div>
+              <h3>Cadastro de Medicamentos</h3>
+            </div>
+          </div>
+
+          <section class="panel glass-panel form-panel">
+            <form id="formMedicamento" class="grid-form">
+              <input type="hidden" id="medicamentoId" />
+
+              <div class="input-group">
+                <label for="nomeMedicamento">Nome do medicamento</label>
+                <input type="text" id="nomeMedicamento" placeholder="Ex: Dipirona" required />
+              </div>
+
+              <div class="input-group">
+                <label for="dosagemMedicamento">Dosagem</label>
+                <input type="text" id="dosagemMedicamento" placeholder="Ex: 500mg" />
+              </div>
+
+              <div class="input-group">
+                <label for="apresentacaoMedicamento">Apresentação</label>
+                <input type="text" id="apresentacaoMedicamento" placeholder="Ex: Comprimido" />
+              </div>
+
+              <div class="input-group">
+                <label for="unidadeMedicamento">Unidade</label>
+                <input type="text" id="unidadeMedicamento" placeholder="Ex: Caixa" />
+              </div>
+
+              <div class="input-group full-width">
+                <label for="categoriaMedicamento">Categoria</label>
+                <input type="text" id="categoriaMedicamento" placeholder="Ex: Sólido Oral" />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salvar medicamento</button>
+                <button type="button" class="btn btn-light" id="btnCancelarEdicaoMedicamento">Cancelar</button>
+                <button type="button" class="btn btn-outline" id="btnCarregarTeste">Carregar lista de teste</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel glass-panel">
+            <div class="panel-header">
+              <div>
+                <h3>Lista de medicamentos</h3>
+                <p>Pesquise, edite e organize os itens cadastrados.</p>
+              </div>
+
+              <input
+                type="text"
+                id="buscaMedicamento"
+                class="search-input"
+                placeholder="Buscar medicamento..."
+              />
+            </div>
+
+           <div class="table-wrap table-wrap-medicamentos">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Medicamento</th>
+                    <th>Dosagem</th>
+                    <th>Apresentação</th>
+                    <th>Unidade</th>
+                    <th>Categoria</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="listaMedicamentos"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="tab-content" id="tab-novo-pedido">
+          <div class="section-header">
+            <div>
+              <h3>Novo Pedido de Falta</h3>
+              <p>Adicione os medicamentos e monte o pedido atual.</p>
+            </div>
+          </div>
+
+          <section class="panel glass-panel form-panel">
+            <form id="formItemPedido" class="grid-form">
+              <div class="input-group full-width">
+                <label for="buscaPedidoMedicamento">Medicamento</label>
+                <input
+                  list="medicamentosDatalist"
+                  id="buscaPedidoMedicamento"
+                  placeholder="Digite para buscar..."
+                  required
+                />
+                <datalist id="medicamentosDatalist"></datalist>
+              </div>
+
+              <div class="input-group">
+                <label for="quantidadeAtual">Quantidade atual</label>
+                <input type="number" id="quantidadeAtual" min="0" placeholder="0" required />
+              </div>
+
+              <div class="input-group">
+                <label for="quantidadePedida">Quantidade pedida</label>
+                <input type="number" id="quantidadePedida" min="1" placeholder="0" required />
+              </div>
+
+              <div class="input-group full-width">
+                <label for="observacaoPedido">Observação</label>
+                <input type="text" id="observacaoPedido" placeholder="Opcional" />
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Adicionar item</button>
+                <button type="button" class="btn btn-light" id="btnLimparPedido">Limpar pedido</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel glass-panel">
+            <div class="panel-header">
+              <div>
+                <h3>Itens do pedido</h3>
+                <p>Confira os itens antes de salvar ou exportar.</p>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Medicamento</th>
+                    <th>Qtd. Atual</th>
+                    <th>Qtd. Pedida</th>
+                    <th>Observação</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="listaItensPedido"></tbody>
+              </table>
+            </div>
+
+            <div class="pedido-actions">
+              <button class="btn btn-primary" id="btnSalvarPedido">Salvar pedido</button>
+              <button class="btn btn-outline" id="btnExportarPedidoAtual">Exportar PDF atual</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="tab-content" id="tab-historico">
+          <div class="section-header">
+            <div>
+              <h3>Histórico de Pedidos</h3>
+              <p>Consulte pedidos salvos e gere novamente o PDF quando quiser.</p>
+            </div>
+          </div>
+
+          <section class="panel glass-panel">
+            <div class="panel-header">
+              <div>
+                <h3>Pedidos salvos</h3>
+                <p>Veja os registros salvos no sistema.</p>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Responsável</th>
+                    <th>Itens</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="listaHistoricoPedidos"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal" id="modalPedido">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3>Detalhes do Pedido</h3>
+          <p class="modal-subtitle">Visualização dos itens salvos.</p>
+        </div>
+        <button class="modal-close" id="fecharModal">×</button>
+      </div>
+
+      <div id="conteudoModalPedido" class="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
